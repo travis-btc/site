@@ -5,10 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="d" />
-  <link rel="icon" href="/favicon_white.png" media="(prefers-color-scheme:dark)" />
-  <link rel="icon" href="/favicon_black.png" media="(prefers-color-scheme:light)" />
   <title>Phrase</title>
-
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <style>:root {
   --background-color: #f4f4f4;
   --main-color: #181818;
@@ -45,17 +43,18 @@ h1 {
   margin: 0;
 }
 
-
+#date {
+  font-size: 20px;
+}
 .container {
-  max-width:700px;
+  max-width:650px;
   margin:3rem;
 }
-
 
 .footer-text {
   font-size: 14px;
   color: grey;
-  text-align: center;
+
 }
 </style>
 
@@ -93,19 +92,33 @@ h1 {
       const phrase = await fetchPhraseForDay(dayOfYear);
       document.getElementById('phrase').innerText = phrase;
   }
-  
-  // Load phrase on page load
-  window.onload = displayPhrase;</script>
+  // Function to display today's date
+function displayDate() {
+    const now = new Date();
+    
+    // Get day and month
+    const day = now.getDate();
+    const month = now.toLocaleString('default', { month: 'long' }); // Returns full month name like "October"
+    
+    // Display the formatted date
+    document.getElementById('date').innerText = `${month} ${day}`;
+}
+
+// Load the phrase and date on page load
+window.onload = function() {
+    displayPhrase();
+    displayDate();
+};</script>
 </head>
 
 <body>
   <div class="container">
     <h1 class="word">Phrase</h1>
+    <span id="date"></span>
     <p class="phrase" id="phrase"></p>
 
     </div>
-    <p class="footer-text">A Daily Phrase Based on Thousands of Years of Refined Knowledge</p>
-  <p class="footer-text">phrase.net</p>
+  <p class="footer-text">phrase.net     <br> <a class="footer-text"href="https://x.com/operate">@operate</a></p>
 </body>
 
 </html>
