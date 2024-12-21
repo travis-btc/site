@@ -103,22 +103,17 @@ async function displayPhrase() {
     document.getElementById('phrase').innerText = phrase;
 }
 
-// Function to display today's date
-function displayDate() {
-    const now = new Date();
-    
-    // Get day and month
-    const day = now.getDate();
-    const month = now.toLocaleString('default', { month: 'long' }); // Returns full month name like "October"
-    
-    // Display the formatted date
-    document.getElementById('date').innerText = `${month} ${day}`;
+// Function to display the week number instead of the date
+function displayWeek() {
+    const weekOfYear = getWeekOfYear();
+    // Display the current week number
+    document.getElementById('week').innerText = `Week ${weekOfYear}`;
 }
 
-// Load the phrase and date on page load
+// Load the phrase and week number on page load
 window.onload = function() {
     displayPhrase();
-    displayDate();
+    displayWeek();
 };
 </script>
 </head>
