@@ -74,15 +74,33 @@ h1 {
 }
 </style>
 <script>
-// Get the current week of the year (1 to 52)
+// Get the current week of the year (1 to 52) with Monday as first day of week
 function getWeekOfYear() {
     const now = new Date();
-    const start = new Date(now.getFullYear(), 0, 1);
-    const diff = now - start;
-    const oneWeek = 1000 * 60 * 60 * 24 * 7;
-    const weekOfYear = Math.ceil(diff / oneWeek);
-    return weekOfYear;
+    const firstDayOfYear = new Date(now.getFullYear(), 0, 1);
+    
+    // Get the first Monday of the year
+    let firstMonday = new Date(firstDayOfYear);
+    while (firstMonday.getDay() !== 1) { // 1 represents Monday
+        firstMonday.setDate(firstMonday.getDate() + 1);
+    }
+    
+    // Check if current date is before the first Monday of the year
+    if (now < firstMonday) {
+        // If before first Monday, return week 52 (last week of previous year)
+        return 52;
+    }
+    
+    // Calculate difference in days between current date and first Monday
+    const diffInDays = Math.floor((now - firstMonday) / (1000 * 60 * 60 * 24));
+    
+    // Calculate week number (adding 1 because weeks are 1-indexed)
+    const weekNumber = Math.floor(diffInDays / 7) + 1;
+    
+    // Make sure we don't exceed 52 weeks
+    return Math.min(weekNumber, 52);
 }
+
 // Function to fetch the text file and get the phrase for the current week
 async function fetchPhraseForWeek(week) {
     try {
